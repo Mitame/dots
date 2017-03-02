@@ -1,0 +1,3 @@
+#!/bin/bash
+d=`date +"%Y-%m-%d %H:%M:%S"`
+(printf "${d}" | xclip -selection c) && notify-send -t 500 "Copied date to clipboard"

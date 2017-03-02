@@ -1,0 +1,69 @@
+#!/bin/zsh
+
+set -e
+
+BG_DIR="/home/emati/Pictures/Wallpapers/Into the Bright Unknown/cropped"
+PERSIST_DIR="$HOME/.mitame/bg"
+
+DO_SAVE=1
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -s|--set)
+      shift
+      if test $# -gt 0; then
+        BG_PATH=$(realpath $1)
+      else
+        echo "No file given when using --set"
+        exit 1;
+      fi
+      printf "$BG_PATH" > $PERSIST_DIR/current
+      shift
+      ;;
+    -r|--randomise)
+      BG_PATH="`find $BG_DIR -type f | sort -R | tail -n 1`"
+      shift
+      ;;
+    -g|--get)
+      echo `cat $PERSIST_DIR/current` # Doesn't end with a new line, so echo the contents
+      exit 0
+      ;;
+    -n|--nosave)
+      DO_SAVE=0
+      shift
+      ;;
+    -S|--save)
+      DO_SAVE=1
+      shift
+      ;;
+    *)
+      echo "Unknown flag '$1'"
+      shift
+      break
+      ;;
+  esac
+done
+
+if [[ -z "$BG_PATH" ]];
+then
+  BG_PATH=`cat $PERSIST_DIR/current`
+# else
+  # notify-send "Changed Background" "Now displaying \"${BG_NAME}\"." -t 3500
+else
+  if [[ "$DO_SAVE" -eq 1 ]]
+  then
+    printf "$BG_PATH" > $PERSIST_DIR/current
+  fi
+fi
+
+
+
+BG_FILE=$(basename "$BG_PATH")
+BG_NAME="${BG_FILE%.*}"
+
+# set the BG
+feh --bg-fill -zr "$BG_PATH"
+
+# update gtk's stuff so lightdm shows it aswell
+# TODO fix (might not be our problem)
+gsettings set org.gnome.desktop.background picture-uri "file://${BG_PATH}"

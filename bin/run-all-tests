@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ -n "$1" ]; then
+  if [ -d "$1" ]; then
+    target_dir=$1
+  else
+    printf "'$1' is not a directory\n"
+    exit
+  fi
+else
+  target_dir=`pwd`
+fi
+for d in \
+  `find $target_dir -maxdepth 1 -name task\* -type d | sort -k2n -tk`;
+do
+  taskname=`basename $d`
+  echo "===================================="
+  echo "task $taskname"
+  echo "------------------------------------"
+  run-tests $d 2>&1
+done | less

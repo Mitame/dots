@@ -1,0 +1,39 @@
+xscreensaver.newLoginCommand: dm-tool switch-to-greeter
+
+! special
+*.foreground:   #dfefff
+*.background:   #000000
+*.cursorColor:  #dfefff
+
+! black
+*.color0:       #000000
+*.color8:       #3f3f3f
+
+! red
+*.color1:       #ff1700
+*.color9:       #ff508d
+
+! green
+*.color2:       #0bd800
+*.color10:      #76d871
+
+! yellow
+*.color3:       #ff9300
+*.color11:      #e1e700
+
+! blue
+*.color4:       #0072ff
+*.color12:      #499aff
+
+! magenta
+*.color5:       #bb1fff
+*.color13:      #d574ff
+
+! cyan
+*.color6:       #00c7ff
+*.color14:      #98e8ff
+
+! white
+*.color7:       #c5c8c6
+*.color15:      #dfefff
+

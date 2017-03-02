@@ -1,0 +1,4 @@
+#!/bin/bash
+xprop -id `\
+  xprop -root _NET_ACTIVE_WINDOW | sed 's/_NET_ACTIVE_WINDOW(WINDOW): window id # //' \
+` | grep '_NET_WM_PID(CARDINAL)' | sed 's/_NET_WM_PID(CARDINAL) = //'

@@ -1,0 +1,93 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+        colors = true
+	color_good = "#b7ce43"
+	color_degraded = "#fea63c"
+	color_bad = "#e84f4f"
+
+	separator = "|"
+        interval = 5
+}
+
+#order += "tor"
+order += "net_rate"
+order += "cpu_temperature 0"
+order += "sysdata"
+order += "arch_updates"
+order += "disk /"
+#order += "disk /mnt/Shared"
+order += "net_status"
+order += "battery_level"
+order += "tztime local"
+order += "volume_status"
+
+#tor {
+#  control_password = "toybox12"
+#  format = "{n}: {exit_addr}/{exit_region}"
+#}
+
+net_rate {
+	all_interfaces = 1
+	format = "{down}D {up}U"
+	hide_if_zero = 0
+}
+
+cpu_temperature 0 {
+	format = "%degrees°"
+	path = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input"
+}
+
+sysdata {
+	format = "CPU:{cpu_usage}% RAM:{mem_used}G"
+}
+
+arch_updates {
+	include_aur = 1
+	format = "UPD: {pacman}/{aur}"
+}
+
+disk "/" {
+	format = "root-%avail"
+}
+
+#disk "/mnt/Shared" {
+#	format = "shrd-%avail"
+#}
+
+volume_status {
+	format = "♪: {percentage}%"
+}
+
+battery_level {
+	battery_id = "all"
+        format = "{icon}{percent}%"
+	notification = False
+	color_charging = "#fea63c"
+#	format_notify_charging = "Charging ({percent}%)"
+#	format_notify_discharging = "{time_remaining}"
+}
+
+path_exists VPN {
+        path = "/proc/sys/net/ipv4/conf/tun0"
+	format = "%title"
+}
+
+net_status {	
+#	format = "A{vpn:yy:yy}{eth:lm:lm}{wifi:ao:ao}!"
+#	color = "#e84f4f"
+}
+
+
+tztime local {
+        format = "%Y-%m-%d %H:%M:%S"
+	timezone = "Europe/London"
+	on_click 1 = "exec --no-startup-id /home/emati/.py3status/copy_date_to_clip"
+}
+

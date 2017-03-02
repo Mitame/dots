@@ -1,0 +1,3 @@
+[submodule "py3status/modules"]
+	path = py3status/modules
+	url = https://github.com/Mitame/py3status-modules.git

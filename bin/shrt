@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+
+import json
+import requests
+import optparse
+
+SHRT_URL="https://xn--yet.ml/"
+API_URL = SHRT_URL + "api/"
+
+def shorten_link(url, code=None, hidden=None):
+    res = requests.post(
+        API_URL + "mk",
+        {
+            "url": url,
+            "code": code,
+            "hidden": hidden
+        }
+    )
+
+    data = json.loads(res.text)
+
+    return data
+
+options = optparse.OptionParser()
+options.add_option("-c", "--code", dest="code",
+                   help="request URL to be at <code>")
+options.add_option("-p", "--hidden", dest="hidden",
+                   action="store_true",
+                   help="Make link a hidden link")
+options.add_option("-P", "--visible", dest="hidden",
+                   action="store_false",
+                   help="Make link a public link")
+
+if __name__ == "__main__":
+    (options, args) = options.parse_args()
+    if len(args) != 1:
+        print("Incorrect number of args.")
+        exit(1)
+
+    res = shorten_link(args[0], options.code, options.hidden)
+    if res["ok"]:
+        print(res["url"])
+        exit(0)
+    else:
+        print(res["error"])
+        exit(1)

@@ -1,0 +1,2 @@
+gtk-print-backends = "file,lpr,cups"
+gtk-icon-theme = "paper"

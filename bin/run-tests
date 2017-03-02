@@ -1,0 +1,41 @@
+#!/bin/zsh
+
+if [ -n "$1" ]; then
+  if [ -d "$1" ]; then
+    target_dir=$1
+  else;
+    printf "'$1' is not a directory\n"
+    exit
+  fi
+else;
+  target_dir=`pwd`
+fi
+
+if [ ! -e "$target_dir/run-tests" ]; then
+  printf "'$target_dir' does not contain a run-tests file\n"
+  exit
+fi
+
+(
+  cd $target_dir
+  for d in *.java; do
+    class_name=${d%.*}
+    if [[ \
+      ! -e "${class_name}.class" \
+      || "${class_name}.java" -nt "${class_name}.class" ]];
+    then
+      files_to_compile="$files_to_compile $d"
+    fi
+  done
+
+  if [ -z "$files_to_compile" ]; then
+    ./run-tests
+  else
+    # Don't ask me why this has to pass through xargs first...
+    if (printf "$files_to_compile" | xargs javac); then
+      ./run-tests
+    else
+      # printf "Did not compile successfully. Not running tests"
+    fi
+  fi
+)
