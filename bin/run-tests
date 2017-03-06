@@ -16,8 +16,11 @@ if [ ! -e "$target_dir/run-tests" ]; then
   exit
 fi
 
+
 (
   cd $target_dir
+  source ./.flags
+
   for d in *.java; do
     class_name=${d%.*}
     if [[ \
@@ -31,8 +34,9 @@ fi
   if [ -z "$files_to_compile" ]; then
     ./run-tests
   else
+
     # Don't ask me why this has to pass through xargs first...
-    if (printf "$files_to_compile" | xargs javac); then
+    if (printf "$JFLAGS $JCFLAGS $files_to_compile" | xargs javac); then
       ./run-tests
     else
       # printf "Did not compile successfully. Not running tests"
