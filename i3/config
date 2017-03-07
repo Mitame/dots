@@ -31,7 +31,7 @@ set $foc_ind	#34495e
 set $fi_bord	#202020
 set $fi_bg	#202020
 set $fi_text	#adb1b3
-set $fi_ind	$202020
+set $fi_ind	#202020
 
 #unfocused
 set $unf_bord	#202020
@@ -43,7 +43,7 @@ set $unf_ind 	#202020
 set $urg_bord	#cb4c41
 set $urg_bg	#cb4c41
 set $urg_text	#cfd1d3
-set $urg_ind 	#cv4c41
+set $urg_ind 	#cb4c41
 
 #placeholder
 set $plc_bord	#3f3f3f
