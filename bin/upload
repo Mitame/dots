@@ -1,0 +1,12 @@
+#!/bin/bash
+
+BASE_URL='https://uploads.mita.me'
+SERVICE='local'
+
+filename=$(uuidgen).${1##*.}
+filesize=$(stat -c%s "$1")
+validation=$(printf "%s %s" "$filename" "$filesize" | openssl dgst -sha256 -hmac "$(cat ~/.mitame/upload/key)" | cut -d' ' -f2)
+
+url="$BASE_URL/$SERVICE/$filename"
+
+curl "$url?v=$validation" --upload-file "$1" 1> /dev/null && echo "$url" || echo "Error occurred"
