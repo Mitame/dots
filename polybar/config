@@ -57,7 +57,7 @@ font-2 = PowerlineSymbols:pixelsize=14
 
 modules-left = i3 xwindow
 modules-center =
-modules-right = updates cpu net battery stopwatch date volume
+modules-right = updates cpu net battery date volume
 
 tray-position = right
 tray-padding = 2
@@ -177,6 +177,8 @@ label = %date% %time%
 [module/volume]
 type = internal/volume
 
+#master-soundcard = hw:1
+
 format-volume = <ramp-volume> <label-volume>
 label-volume = %percentage:3:3%%
 label-volume-foreground = ${root.foreground}
@@ -247,23 +249,10 @@ format = <label>
 ;format-underline = ${xrdb:*.color4:#aaaaaa}
 label = "%output:0:30%"
 exec = .config/polybar/pkg.sh
-exec-if = ping -w 2 -c 1 8.8.8.8
+;exec-if = ping -w 2 -c 1 8.8.8.8
 
 [module/net]
 type = custom/script
 tail = True
 
 exec = .config/polybar/net.py
-
-[module/stopwatch]
-type = custom/script
-
-interval = 1
-format = <label>
-
-label = "%output%"
-exec = .config/polybar/stopwatch/output.sh
-; exec-if = test -f .config/polybar/stopwatch/timefile
-
-click-left = .config/polybar/stopwatch/start.sh
-click-right = .config/polybar/stopwatch/stop.sh
