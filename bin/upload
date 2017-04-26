@@ -3,10 +3,30 @@
 BASE_URL='https://uploads.mita.me'
 SERVICE='local'
 
-filename=$(uuidgen).${1##*.}
-filesize=$(stat -c%s "$1")
+if [ -t 0 ]; then
+  raw_filename=$1
+  filename=$(uuidgen).${raw_filename##*.}
+else
+  filename=$(uuidgen).txt
+  raw_filename="/tmp/$filename"
+
+  cat /dev/stdin > $raw_filename
+fi
+
+filesize=$(stat -c%s "$raw_filename")
 validation=$(printf "%s %s" "$filename" "$filesize" | openssl dgst -sha256 -hmac "$(cat ~/.mitame/upload/key)" | cut -d' ' -f2)
 
 url="$BASE_URL/$SERVICE/$filename"
 
-curl "$url?v=$validation" --upload-file "$1" 1> /dev/null && echo "$url" || echo "Error occurred"
+status=$(curl "$url?v=$validation" --upload-file "$raw_filename" --silent -w "%{http_code}" --output /dev/null)
+if [ "$status" -eq 200 ]; then
+  echo "$url"
+elif [ "$status" -eq 403 ]; then
+  echo "Signing key incorrect"
+elif [ "$status" -eq 409 ]; then
+  echo "File exists"
+else
+  echo "Unknown error occurred"
+fi
+
+[ ! -t 0 ] && rm $raw_filename
