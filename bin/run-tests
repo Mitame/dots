@@ -21,8 +21,9 @@ fi
   cd $target_dir
   source ./.flags
 
-  for d in *.java; do
+  for d in $(find . -name \*.java); do
     class_name=${d%.*}
+    class_name=${class_name%\$*}
     if [[ \
       ! -e "${class_name}.class" \
       || "${class_name}.java" -nt "${class_name}.class" ]];
