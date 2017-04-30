@@ -22,7 +22,7 @@ notify2.init(__name__, "glib")
 
 CAPTURE_BIN = "scrot"
 UPLOAD_BIN = "upload"
-OUTPUT_DIRECTORY = os.path.expanduser("/tmp")
+OUTPUT_DIRECTORY = os.path.expanduser("~/Pictures/Screenshots")
 OUTPUT_FILE = "Screenshot from %y-%m-%d %H-%M-%S.png"
 
 def capture_area():
@@ -81,9 +81,8 @@ def clip(item):
     clip.stdin.close()
     return clip.wait() == 0
 
-def clip_file(file_path):
-    clip = subprocess.Popen(["xclip", "-selection", "c", "file_path"], stdin=subprocess.PIPE)
-    clip.stdin.close()
+def clip_file(mimetype, file_path):
+    clip = subprocess.Popen(["xclip", "-selection", "c", "-t", mimetype, file_path], stdin=subprocess.PIPE)
     return clip.wait() == 0
 
 
@@ -165,7 +164,7 @@ if __name__ == "__main__":
                     ).show()
 
             elif action_key == "copy":
-                if clip_file(file_path):
+                if clip_file("image/png", file_path):
                     notify2.Notification(
                         "Screenshot copied",
                         "Shot copied to clipboard"
