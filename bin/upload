@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 BASE_URL='https://uploads.mita.me'
 SERVICE='local'
 
@@ -26,7 +28,8 @@ elif [ "$status" -eq 403 ]; then
 elif [ "$status" -eq 409 ]; then
   echo "File exists"
 else
-  echo "Unknown error occurred"
+  echo "Unknown error ($status) occurred"
 fi
 
 [ ! -t 0 ] && rm $raw_filename
+exit 0;

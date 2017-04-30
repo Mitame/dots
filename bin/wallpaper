@@ -62,7 +62,7 @@ BG_FILE=$(basename "$BG_PATH")
 BG_NAME="${BG_FILE%.*}"
 
 # set the BG
-feh --bg-fill -zr "$BG_PATH"
+feh --bg-max -r "$BG_PATH"
 
 # update gtk's stuff so lightdm shows it aswell
 # TODO fix (might not be our problem)
