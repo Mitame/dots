@@ -5,7 +5,7 @@ set -e
 BASE_URL='https://uploads.mita.me'
 SERVICE='local'
 
-if [ -z "$1"]; then
+if [ -z "$1" ]; then
   filename=$(uuidgen).txt
   raw_filename="/tmp/$filename"
 
