@@ -2,7 +2,7 @@
 
 set -e
 
-BG_DIR="$HOME.mitame/bg/wallpapers/" # Trailing slash required because symlinks
+BG_DIR="$HOME/.mitame/bg/wallpapers/" # Trailing slash required because symlinks
 PERSIST_DIR="$HOME/.mitame/bg"
 
 DO_SAVE=1
