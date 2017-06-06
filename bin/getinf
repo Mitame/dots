@@ -1,2 +1,0 @@
-echo "$1"
-mediainfo "$1" | grep "Overall bit rate  "
