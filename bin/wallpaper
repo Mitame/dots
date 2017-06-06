@@ -2,7 +2,7 @@
 
 set -e
 
-BG_DIR="/home/emati/Pictures/Wallpapers/Into the Bright Unknown/cropped"
+BG_DIR="$HOME.mitame/bg/wallpapers/" # Trailing slash required because symlinks
 PERSIST_DIR="$HOME/.mitame/bg"
 
 DO_SAVE=1
@@ -21,7 +21,7 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     -r|--randomise)
-      BG_PATH="`find $BG_DIR -type f | sort -R | tail -n 1`"
+      BG_PATH="$(find $BG_DIR -type f | sort -R | tail -n 1)"
       shift
       ;;
     -g|--get)
