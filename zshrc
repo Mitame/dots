@@ -8,6 +8,9 @@ if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
 fi
 # Created by newuser for 5.2 #
 
+# Load profile
+source ~/.profile
+
 # Overwrite files when using `x > y`
 setopt clobber
 
@@ -29,7 +32,7 @@ zstyle ':completion:*:processes-names' command 'NOCOLORS=1 ps xho command|sed "s
 zstyle ':completion:*:processes' sort false
 
 # The following lines were added by compinstall
-zstyle ':completion:*' completer _complete _ignored _correct _approximate
+zstyle ':completion:*' completer _complete _ignored _approximate
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=** r:|=**' 'l:|=* r:|=*'
 zstyle :compinstall filename '/home/emati/.zshrc'
 autoload -Uz compinit

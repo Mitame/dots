@@ -19,8 +19,9 @@ filesize=$(stat -c%s "$raw_filename")
 validation=$(printf "%s %s" "$filename" "$filesize" | openssl dgst -sha256 -hmac "$(cat ~/.mitame/upload/key)" | cut -d' ' -f2)
 
 url="$BASE_URL/$SERVICE/$filename"
-
-status=$(curl "$url?v=$validation" --upload-file "$raw_filename" --silent -w "%{http_code}" --output /dev/null)
+echo "Uploading to $url..." > /dev/stderr
+status=$(curl "$url?v=$validation" --upload-file "$raw_filename" -w "%{http_code}" --output /dev/stderr --globoff)
+echo > /dev/stderr
 if [ "$status" -eq 200 ]; then
   echo "$url"
 elif [ "$status" -eq 403 ]; then

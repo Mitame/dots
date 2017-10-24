@@ -64,6 +64,5 @@ BG_NAME="${BG_FILE%.*}"
 # set the BG
 feh --bg-max -r "$BG_PATH"
 
-# update gtk's stuff so lightdm shows it aswell
-# TODO fix (might not be our problem)
-gsettings set org.gnome.desktop.background picture-uri "file://${BG_PATH}"
+# Symlink the image so lightdm can show it
+ln -sf $BG_PATH .background 

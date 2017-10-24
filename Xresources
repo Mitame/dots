@@ -1,4 +1,5 @@
 xscreensaver.newLoginCommand: dm-tool switch-to-greeter
+Xft.dpi:	96
 
 ! special
 *.foreground:   #dfefff

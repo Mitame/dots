@@ -286,15 +286,15 @@ bindsym Ctrl+Shift+XF86MonBrightnessDown exec --no-startup-id xbacklight -set 1 
 # Touchpad controls
 # bindsym XF86TouchpadToggle exec --no-startup-id /usr/bin/toggletouchpad.sh # toggle touchpad
 
-bindsym XF86AudioPrev exec --no-startup-id mpc prev
-bindsym XF86AudioPlay exec --no-startup-id mpc toggle
-bindsym Cancel exec --no-startup-id mpc stop
-bindsym XF86AudioNext exec --no-startup-id mpc next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym Cancel exec --no-startup-id mpc playerctl stop
+bindsym XF86AudioNext exec --no-startup-id playerctl next
 
-bindsym Ctrl+Prior exec --no-startup-id mpc prev
-bindsym Ctrl+Home exec --no-startup-id mpc toggle
-bindsym Ctrl+End exec --no-startup-id mpc stop
-bindsym Ctrl+Next exec --no-startup-id mpc next
+bindsym Ctrl+Prior exec --no-startup-id playerctl previous
+bindsym Ctrl+Home exec --no-startup-id playerctl play-pause
+bindsym Ctrl+End exec --no-startup-id playerctl stop
+bindsym Ctrl+Next exec --no-startup-id playerctl next
 
 bindsym XF86Display exec arandr
 
@@ -322,11 +322,15 @@ bindsym Ctrl+Print exec --no-startup-id screenshot --select
 
 
 #set autoworkspacing
-assign [class="Thunderbird"] 2
+#assign [class="Thunderbird"] 2
 #assign [class="Firefox"] 4
 
+# Make wine desktop auto-float
+for_window [class="explorer.exe"] floating enable
+
+
 # sort out ibus
-#exec --no-startup-id ibus-daemon
+exec --no-startup-id ibus-daemon
 
 
 # Run stuff
@@ -347,7 +351,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 
 
-exec thunderbird
+#exec thunderbird
 
 # set the mouse settings
 exec_always --no-startup-id input_fix
@@ -358,3 +362,7 @@ exec --no-startup-id synapse -s
 exec --no-startup-id light-locker --lock-on-suspend --lock-after-screensaver=10
 
 exec --no-startup-id gpaste-client start
+
+#exec --no-startup-id kwalletd5
+
+exec --no-startup-id mpDris2
